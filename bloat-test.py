@@ -54,6 +54,31 @@ void doFormat_a() {
   fmt::print("{}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
 }
 
+#elif defined(USE_COMPILED_FMT)
+#include "fmt/compile.h"
+
+void doFormat_a() {
+  constexpr auto compiled_format1 = fmt::compile<int>(
+    FMT_STRING("{}\n"));
+  fmt::print(compiled_format1, "somefile.cpp");
+
+  constexpr auto compiled_format2 = fmt::compile<const char *, int>(
+    FMT_STRING("{}:{}\n"));
+  fmt::print(compiled_format2, "somefile.cpp", 42);
+
+  constexpr auto compiled_format3 = fmt::compile<const char *, int, const char *>(
+    FMT_STRING("{}:{}:{}\n"));
+  fmt::print(compiled_format3, "somefile.cpp", 42, "asdf");
+
+  constexpr auto compiled_format4 = fmt::compile<const char *, int, int, const char *>(
+    FMT_STRING("{}:{}:{}:{}\n"));
+  fmt::print(compiled_format4, "somefile.cpp", 42, 1, "asdf");
+
+  constexpr auto compiled_format5 = fmt::compile<const char *, int, int, itn const char *>(
+    FMT_STRING("{}:{}:{}:{}:{}\n"));
+  fmt::print(compiled_format5, "somefile.cpp", 42, 1, 2, "asdf");
+}
+
 #elif defined(USE_IOSTREAMS)
 
 #include <iostream>
@@ -90,7 +115,24 @@ void doFormat_a() {
   stbsp_sprintf(buf, "%s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
   fputs(buf, stdout);
 }
+#elif defined(USE_PFORMAT)
+#include <pformat/pformat.h>
+#include "stdio.h"
 
+void doFormat_a() {
+  using namespace pformat;
+  char buf[100];
+  "{}\n"_fmt.format_to(buf, "somefile.cpp");
+  fputs(buf, stdout);
+  "{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42);
+  fputs(buf, stdout);
+  "{}:{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42, "asdf");
+  fputs(buf, stdout);
+  "{}:{}:{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42, 1, "asdf");
+  fputs(buf, stdout);
+  "{}:{}:{}:{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+}
 #else
 # ifdef USE_TINYFORMAT
 #   include "tinyformat.h"
@@ -110,6 +152,7 @@ void doFormat_a() {
   PRINTF("%s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
   PRINTF("%s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
 }
+
 #endif
 '''
 
@@ -173,7 +216,7 @@ def benchmark(flags):
     os.remove(output_filename)
   include_dir = '-I' + os.path.dirname(os.path.realpath(__file__))
   command = 'check_call({})'.format(
-    [compiler_path, '-std=c++14', '-o', output_filename, include_dir] + sources + flags)
+    [compiler_path, '-std=c++17', '-o', output_filename, include_dir] + sources + flags)
   result = Result()
   result.time = timeit(
     command, setup = 'from subprocess import check_call', number = 1)
@@ -208,10 +251,12 @@ methods = [
   ('printf+string', ['-DUSE_STRING']),
   ('IOStreams'    , ['-DUSE_IOSTREAMS']),
   ('fmt'          , ['-DUSE_FMT', '-Ifmt/include', fmt_library]),
+  ('compiled_fmt' , ['-DUSE_FMT', '-Ifmt/include', fmt_library]),
   ('tinyformat'   , ['-DUSE_TINYFORMAT']),
   ('Boost Format' , ['-DUSE_BOOST']),
-  ('Folly Format' , ['-DUSE_FOLLY', '-lfolly']),
+  ('Folly Format' , ['-DUSE_FOLLY', '-lfolly','-ldouble-conversion']),
   ('stb_sprintf'  , ['-DUSE_STB_SPRINTF']),
+  ('pformat' , ['-DUSE_PFORMAT'])
 ]
 
 def format_field(field, format = '', width = ''):
