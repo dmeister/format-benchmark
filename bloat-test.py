@@ -18,13 +18,45 @@ template = r'''
 #include <iostream>
 
 void doFormat_a() {
-  std::cout << boost::format("%s\n") % "somefile.cpp";
-  std::cout << boost::format("%s:%d\n") % "somefile.cpp" % 42;
-  std::cout << boost::format("%s:%d:%s\n") % "somefile.cpp" % 42 % "asdf";
+  std::cout << boost::format("a %s\n") % "somefile.cpp";
+  std::cout << boost::format("a %s:%d\n") % "somefile.cpp" % 42;
+  std::cout << boost::format("a %s:%d:%s\n") % "somefile.cpp" % 42 % "asdf";
   std::cout <<
-    boost::format("%s:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % "asdf";
+    boost::format("a %s:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % "asdf";
   std::cout <<
-    boost::format("%s:%d:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % 2 % "asdf";
+    boost::format("a %s:%d:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % 2 % "asdf";
+  std::cout <<
+    boost::format("a %s:%d:%d:%d:%s %s:%d:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % 2 % "asdf" % "somefile.cpp" % 42 % 1 % 2 % "asdf";
+}
+
+void doFormat_b() {
+  std::cout << boost::format("b %s\n") % "somefile.cpp";
+  std::cout << boost::format("b %s:%d\n") % "somefile.cpp" % 42;
+  std::cout << boost::format("b %s:%d:%s\n") % "somefile.cpp" % 42 % "asdf";
+  std::cout <<
+    boost::format("b %s:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % "asdf";
+  std::cout <<
+    boost::format("b %s:%d:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % 2 % "asdf";
+}
+
+void doFormat_c() {
+  std::cout << boost::format("c %s\n") % "somefile.cpp";
+  std::cout << boost::format("c %s:%d\n") % "somefile.cpp" % 42;
+  std::cout << boost::format("c %s:%d:%s\n") % "somefile.cpp" % 42 % "asdf";
+  std::cout <<
+    boost::format("c %s:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % "asdf";
+  std::cout <<
+    boost::format("c %s:%d:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % 2 % "asdf";
+}
+
+void doFormat_d() {
+  std::cout << boost::format("d %s\n") % "somefile.cpp";
+  std::cout << boost::format("d %s:%d\n") % "somefile.cpp" % 42;
+  std::cout << boost::format("d %s:%d:%s\n") % "somefile.cpp" % 42 % "asdf";
+  std::cout <<
+    boost::format("d %s:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % "asdf";
+  std::cout <<
+    boost::format("d %s:%d:%d:%d:%s\n") % "somefile.cpp" % 42 % 1 % 2 % "asdf";
 }
 
 #elif USE_FOLLY
@@ -33,25 +65,86 @@ void doFormat_a() {
 #include <iostream>
 
 void doFormat_a() {
-  std::cout << folly::format("{}\n", "somefile.cpp");
-  std::cout << folly::format("{}:{}\n", "somefile.cpp", 42);
-  std::cout << folly::format("{}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  std::cout << folly::format("a {}\n", "somefile.cpp");
+  std::cout << folly::format("a {}:{}\n", "somefile.cpp", 42);
+  std::cout << folly::format("a {}:{}:{}\n", "somefile.cpp", 42, "asdf");
   std::cout <<
-    folly::format("{}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+    folly::format("a {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
   std::cout <<
-    folly::format("{}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+    folly::format("a {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+      std::cout <<
+    folly::format("a {}:{}:{}:{}:{} {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf", "somefile.cpp", 42, 1, 2, "asdf");
 }
+
+void doFormat_b() {
+  std::cout << folly::format("b {}\n", "somefile.cpp");
+  std::cout << folly::format("b {}:{}\n", "somefile.cpp", 42);
+  std::cout << folly::format("b {}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  std::cout <<
+    folly::format("b {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+  std::cout <<
+    folly::format("b {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+void doFormat_c() {
+  std::cout << folly::format("c {}\n", "somefile.cpp");
+  std::cout << folly::format("c {}:{}\n", "somefile.cpp", 42);
+  std::cout << folly::format("c {}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  std::cout <<
+    folly::format("c {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+  std::cout <<
+    folly::format("c {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+void doFormat_d() {
+  std::cout << folly::format("d {}\n", "somefile.cpp");
+  std::cout << folly::format("d {}:{}\n", "somefile.cpp", 42);
+  std::cout << folly::format("d {}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  std::cout <<
+    folly::format("d {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+  std::cout <<
+    folly::format("d {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
 
 #elif defined(USE_FMT)
 
 #include "fmt/core.h"
 
 void doFormat_a() {
-  fmt::print("{}\n", "somefile.cpp");
-  fmt::print("{}:{}\n", "somefile.cpp", 42);
-  fmt::print("{}:{}:{}\n", "somefile.cpp", 42, "asdf");
-  fmt::print("{}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
-  fmt::print("{}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+  fmt::print("a {}\n", "somefile.cpp");
+  fmt::print("a {}:{}\n", "somefile.cpp", 42);
+  fmt::print("a {}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  fmt::print("a {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+  fmt::print("a {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+  fmt::print("a {}:{}:{}:{}:{} {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+
+void doFormat_b() {
+  fmt::print("b {}\n", "somefile.cpp");
+  fmt::print("b {}:{}\n", "somefile.cpp", 42);
+  fmt::print("b {}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  fmt::print("b {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+  fmt::print("b {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+
+void doFormat_c() {
+  fmt::print("c {}\n", "somefile.cpp");
+  fmt::print("c {}:{}\n", "somefile.cpp", 42);
+  fmt::print("c {}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  fmt::print("c {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+  fmt::print("c {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+
+void doFormat_d() {
+  fmt::print("d {}\n", "somefile.cpp");
+  fmt::print("d {}:{}\n", "somefile.cpp", 42);
+  fmt::print("d {}:{}:{}\n", "somefile.cpp", 42, "asdf");
+  fmt::print("d {}:{}:{}:{}\n", "somefile.cpp", 42, 1, "asdf");
+  fmt::print("d {}:{}:{}:{}:{}\n", "somefile.cpp", 42, 1, 2, "asdf");
 }
 
 #elif defined(USE_COMPILED_FMT)
@@ -59,36 +152,134 @@ void doFormat_a() {
 
 void doFormat_a() {
   constexpr auto compiled_format1 = fmt::compile<int>(
-    FMT_STRING("{}\n"));
+    FMT_STRING("a {}\n"));
   fmt::print(compiled_format1, "somefile.cpp");
 
   constexpr auto compiled_format2 = fmt::compile<const char *, int>(
-    FMT_STRING("{}:{}\n"));
+    FMT_STRING("a {}:{}\n"));
   fmt::print(compiled_format2, "somefile.cpp", 42);
 
   constexpr auto compiled_format3 = fmt::compile<const char *, int, const char *>(
-    FMT_STRING("{}:{}:{}\n"));
+    FMT_STRING("a {}:{}:{}\n"));
   fmt::print(compiled_format3, "somefile.cpp", 42, "asdf");
 
   constexpr auto compiled_format4 = fmt::compile<const char *, int, int, const char *>(
-    FMT_STRING("{}:{}:{}:{}\n"));
+    FMT_STRING("a {}:{}:{}:{}\n"));
   fmt::print(compiled_format4, "somefile.cpp", 42, 1, "asdf");
 
   constexpr auto compiled_format5 = fmt::compile<const char *, int, int, itn const char *>(
-    FMT_STRING("{}:{}:{}:{}:{}\n"));
+    FMT_STRING("a {}:{}:{}:{}:{}\n"));
+  fmt::print(compiled_format5, "somefile.cpp", 42, 1, 2, "asdf");
+
+  constexpr auto compiled_format6 = fmt::compile<const char *, int, int, itn const char *, const char *, int, int, itn const char *>(
+    FMT_STRING("a {}:{}:{}:{}:{} {}:{}:{}:{}:{}\n"));
+  fmt::print(compiled_format5, "somefile.cpp", 42, 1, 2, "asdf", "somefile.cpp", 42, 1, 2, "asdf")
+}
+
+void doFormat_b() {
+  constexpr auto compiled_format1 = fmt::compile<int>(
+    FMT_STRING("b {}\n"));
+  fmt::print(compiled_format1, "somefile.cpp");
+
+  constexpr auto compiled_format2 = fmt::compile<const char *, int>(
+    FMT_STRING("b {}:{}\n"));
+  fmt::print(compiled_format2, "somefile.cpp", 42);
+
+  constexpr auto compiled_format3 = fmt::compile<const char *, int, const char *>(
+    FMT_STRING("b {}:{}:{}\n"));
+  fmt::print(compiled_format3, "somefile.cpp", 42, "asdf");
+
+  constexpr auto compiled_format4 = fmt::compile<const char *, int, int, const char *>(
+    FMT_STRING("b {}:{}:{}:{}\n"));
+  fmt::print(compiled_format4, "somefile.cpp", 42, 1, "asdf");
+
+  constexpr auto compiled_format5 = fmt::compile<const char *, int, int, itn const char *>(
+    FMT_STRING("b {}:{}:{}:{}:{}\n"));
   fmt::print(compiled_format5, "somefile.cpp", 42, 1, 2, "asdf");
 }
+
+
+void doFormat_c() {
+  constexpr auto compiled_format1 = fmt::compile<int>(
+    FMT_STRING("c {}\n"));
+  fmt::print(compiled_format1, "somefile.cpp");
+
+  constexpr auto compiled_format2 = fmt::compile<const char *, int>(
+    FMT_STRING("c {}:{}\n"));
+  fmt::print(compiled_format2, "somefile.cpp", 42);
+
+  constexpr auto compiled_format3 = fmt::compile<const char *, int, const char *>(
+    FMT_STRING("c {}:{}:{}\n"));
+  fmt::print(compiled_format3, "somefile.cpp", 42, "asdf");
+
+  constexpr auto compiled_format4 = fmt::compile<const char *, int, int, const char *>(
+    FMT_STRING("c {}:{}:{}:{}\n"));
+  fmt::print(compiled_format4, "somefile.cpp", 42, 1, "asdf");
+
+  constexpr auto compiled_format5 = fmt::compile<const char *, int, int, itn const char *>(
+    FMT_STRING("c {}:{}:{}:{}:{}\n"));
+  fmt::print(compiled_format5, "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+
+void doFormat_d() {
+  constexpr auto compiled_format1 = fmt::compile<int>(
+    FMT_STRING("d {}\n"));
+  fmt::print(compiled_format1, "somefile.cpp");
+
+  constexpr auto compiled_format2 = fmt::compile<const char *, int>(
+    FMT_STRING("d {}:{}\n"));
+  fmt::print(compiled_format2, "somefile.cpp", 42);
+
+  constexpr auto compiled_format3 = fmt::compile<const char *, int, const char *>(
+    FMT_STRING("d {}:{}:{}\n"));
+  fmt::print(compiled_format3, "somefile.cpp", 42, "asdf");
+
+  constexpr auto compiled_format4 = fmt::compile<const char *, int, int, const char *>(
+    FMT_STRING("d {}:{}:{}:{}\n"));
+  fmt::print(compiled_format4, "somefile.cpp", 42, 1, "asdf");
+
+  constexpr auto compiled_format5 = fmt::compile<const char *, int, int, itn const char *>(
+    FMT_STRING("d {}:{}:{}:{}:{}\n"));
+  fmt::print(compiled_format5, "somefile.cpp", 42, 1, 2, "asdf");
+}
+
 
 #elif defined(USE_IOSTREAMS)
 
 #include <iostream>
 
 void doFormat_a() {
-  std::cout << "somefile.cpp" << "\n";
-  std::cout << "somefile.cpp:" << 42 << "\n";
-  std::cout << "somefile.cpp:" << 42 << ":asdf" << "\n";
-  std::cout << "somefile.cpp:" << 42 << ':' << 1 << ":asdf" << "\n";
-  std::cout << "somefile.cpp:" << 42 << ':' << 1 << ':' << 2 << ":asdf" << "\n";
+  std::cout << "a somefile.cpp" << "\n";
+  std::cout << "a somefile.cpp:" << 42 << "\n";
+  std::cout << "a somefile.cpp:" << 42 << ":asdf" << "\n";
+  std::cout << "a somefile.cpp:" << 42 << ':' << 1 << ":asdf" << "\n";
+  std::cout << "a somefile.cpp:" << 42 << ':' << 1 << ':' << 2 << ":asdf" << "\n";
+  std::cout << "a somefile.cpp:" << 42 << ':' << 1 << ':' << 2 << ":asdf" << " somefile.cpp:" << 42 << ':' << 1 << ':' << 2 << ":asdf" << "\n";
+}
+
+void doFormat_b() {
+  std::cout << "b somefile.cpp" << "\n";
+  std::cout << "b somefile.cpp:" << 42 << "\n";
+  std::cout << "b somefile.cpp:" << 42 << ":asdf" << "\n";
+  std::cout << "b somefile.cpp:" << 42 << ':' << 1 << ":asdf" << "\n";
+  std::cout << "b somefile.cpp:" << 42 << ':' << 1 << ':' << 2 << ":asdf" << "\n";
+}
+
+void doFormat_c() {
+  std::cout << "c somefile.cpp" << "\n";
+  std::cout << "c somefile.cpp:" << 42 << "\n";
+  std::cout << "c somefile.cpp:" << 42 << ":asdf" << "\n";
+  std::cout << "c somefile.cpp:" << 42 << ':' << 1 << ":asdf" << "\n";
+  std::cout << "c somefile.cpp:" << 42 << ':' << 1 << ':' << 2 << ":asdf" << "\n";
+}
+
+void doFormat_d() {
+  std::cout << "d somefile.cpp" << "\n";
+  std::cout << "d somefile.cpp:" << 42 << "\n";
+  std::cout << "d somefile.cpp:" << 42 << ":asdf" << "\n";
+  std::cout << "d somefile.cpp:" << 42 << ':' << 1 << ":asdf" << "\n";
+  std::cout << "d somefile.cpp:" << 42 << ':' << 1 << ':' << 2 << ":asdf" << "\n";
 }
 
 #elif defined(USE_STB_SPRINTF)
@@ -103,16 +294,60 @@ void doFormat_a() {
 #include "stdio.h"
 
 void doFormat_a() {
+  char buf[200];
+  stbsp_sprintf(buf, "a %s\n", "somefile.cpp");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "a %s:%d\n", "somefile.cpp", 42);
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "a %s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "a %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "a %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "a %s:%d:%d:%d:%s %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf", "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+}
+
+void doFormat_b() {
   char buf[100];
-  stbsp_sprintf(buf, "%s\n", "somefile.cpp");
+  stbsp_sprintf(buf, "b %s\n", "somefile.cpp");
   fputs(buf, stdout);
-  stbsp_sprintf(buf, "%s:%d\n", "somefile.cpp", 42);
+  stbsp_sprintf(buf, "b %s:%d\n", "somefile.cpp", 42);
   fputs(buf, stdout);
-  stbsp_sprintf(buf, "%s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  stbsp_sprintf(buf, "b %s:%d:%s\n", "somefile.cpp", 42, "asdf");
   fputs(buf, stdout);
-  stbsp_sprintf(buf, "%s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  stbsp_sprintf(buf, "b %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
   fputs(buf, stdout);
-  stbsp_sprintf(buf, "%s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+  stbsp_sprintf(buf, "b %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+}
+
+void doFormat_c() {
+  char buf[100];
+  stbsp_sprintf(buf, "c %s\n", "somefile.cpp");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "c %s:%d\n", "somefile.cpp", 42);
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "c %s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "c %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "c %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+}
+
+void doFormat_d() {
+  char buf[100];
+  stbsp_sprintf(buf, "d %s\n", "somefile.cpp");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "d %s:%d\n", "somefile.cpp", 42);
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "d %s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "d %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  fputs(buf, stdout);
+  stbsp_sprintf(buf, "d %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
   fputs(buf, stdout);
 }
 #elif defined(USE_PFORMAT)
@@ -122,15 +357,84 @@ void doFormat_a() {
 void doFormat_a() {
   using namespace pformat;
   char buf[100];
-  "{}\n"_fmt.format_to(buf, "somefile.cpp");
+  constexpr auto cf1 = "a {}\n"_log;
+  cf1.format_to(buf, "somefile.cpp");
   fputs(buf, stdout);
-  "{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42);
+  constexpr auto cf2 = "a {}:{}\n"_log;
+  cf2.format_to(buf, "somefile.cpp", 42);
   fputs(buf, stdout);
-  "{}:{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42, "asdf");
+  constexpr auto cf3 = "a {}:{}:{}\n"_log;
+  cf3.format_to(buf, "somefile.cpp", 42, "asdf");
   fputs(buf, stdout);
-  "{}:{}:{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42, 1, "asdf");
+  constexpr auto cf4 = "a {}:{}:{}:{}\n"_log;
+  cf4.format_to(buf, "somefile.cpp", 42, 1, "asdf");
   fputs(buf, stdout);
-  "{}:{}:{}:{}:{}\n"_fmt.format_to(buf, "somefile.cpp", 42, 1, 2, "asdf");
+  constexpr auto cf5 = "a {}:{}:{}:{}:{}\n"_log;
+  cf5.format_to(buf, "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+  
+  constexpr auto cf6 = "a {}:{}:{}:{}:{} {}:{}:{}:{}:{}\n"_log;
+  cf6.format_to(buf, "somefile.cpp", 42, 1, 2, "asdf", "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+}
+
+void doFormat_b() {
+  using namespace pformat;
+  char buf[100];
+  constexpr auto cf1 = "b {}\n"_log;
+  cf1.format_to(buf, "somefile.cpp");
+  fputs(buf, stdout);
+  constexpr auto cf2 = "b {}:{}\n"_log;
+  cf2.format_to(buf, "somefile.cpp", 42);
+  fputs(buf, stdout);
+  constexpr auto cf3 = "b {}:{}:{}\n"_log;
+  cf3.format_to(buf, "somefile.cpp", 42, "asdf");
+  fputs(buf, stdout);
+  constexpr auto cf4 = "b {}:{}:{}:{}\n"_log;
+  cf4.format_to(buf, "somefile.cpp", 42, 1, "asdf");
+  fputs(buf, stdout);
+  constexpr auto cf5 = "b {}:{}:{}:{}:{}\n"_log;
+  cf5.format_to(buf, "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+}
+
+void doFormat_c() {
+  using namespace pformat;
+  char buf[100];
+  constexpr auto cf1 = "c {}\n"_log;
+  cf1.format_to(buf, "somefile.cpp");
+  fputs(buf, stdout);
+  constexpr auto cf2 = "c {}:{}\n"_log;
+  cf2.format_to(buf, "somefile.cpp", 42);
+  fputs(buf, stdout);
+  constexpr auto cf3 = "c {}:{}:{}\n"_log;
+  cf3.format_to(buf, "somefile.cpp", 42, "asdf");
+  fputs(buf, stdout);
+  constexpr auto cf4 = "c {}:{}:{}:{}\n"_log;
+  cf4.format_to(buf, "somefile.cpp", 42, 1, "asdf");
+  fputs(buf, stdout);
+  constexpr auto cf5 = "c {}:{}:{}:{}:{}\n"_log;
+  cf5.format_to(buf, "somefile.cpp", 42, 1, 2, "asdf");
+  fputs(buf, stdout);
+}
+
+void doFormat_d() {
+  using namespace pformat;
+  char buf[100];
+  constexpr auto cf1 = "d {}\n"_log;
+  cf1.format_to(buf, "somefile.cpp");
+  fputs(buf, stdout);
+  constexpr auto cf2 = "d {}:{}\n"_log;
+  cf2.format_to(buf, "somefile.cpp", 42);
+  fputs(buf, stdout);
+  constexpr auto cf3 = "d {}:{}:{}\n"_log;
+  cf3.format_to(buf, "somefile.cpp", 42, "asdf");
+  fputs(buf, stdout);
+  constexpr auto cf4 = "d {}:{}:{}:{}\n"_log;
+  cf4.format_to(buf, "somefile.cpp", 42, 1, "asdf");
+  fputs(buf, stdout);
+  constexpr auto cf5 = "d {}:{}:{}:{}:{}\n"_log;
+  cf5.format_to(buf, "somefile.cpp", 42, 1, 2, "asdf");
   fputs(buf, stdout);
 }
 #else
@@ -146,11 +450,36 @@ void doFormat_a() {
 # endif
 
 void doFormat_a() {
-  PRINTF("%s\n", "somefile.cpp");
-  PRINTF("%s:%d\n", "somefile.cpp", 42);
-  PRINTF("%s:%d:%s\n", "somefile.cpp", 42, "asdf");
-  PRINTF("%s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
-  PRINTF("%s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+  PRINTF("a %s\n", "somefile.cpp");
+  PRINTF("a %s:%d\n", "somefile.cpp", 42);
+  PRINTF("a %s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  PRINTF("a %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  PRINTF("a %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+  PRINTF("a %s:%d:%d:%d:%s %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+void doFormat_b() {
+  PRINTF("b %s\n", "somefile.cpp");
+  PRINTF("b %s:%d\n", "somefile.cpp", 42);
+  PRINTF("b %s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  PRINTF("b %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  PRINTF("b %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+void doFormat_c() {
+  PRINTF("c %s\n", "somefile.cpp");
+  PRINTF("c %s:%d\n", "somefile.cpp", 42);
+  PRINTF("c %s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  PRINTF("c %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  PRINTF("c %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
+}
+
+void doFormat_d() {
+  PRINTF("d %s\n", "somefile.cpp");
+  PRINTF("d %s:%d\n", "somefile.cpp", 42);
+  PRINTF("d %s:%d:%s\n", "somefile.cpp", 42, "asdf");
+  PRINTF("d %s:%d:%d:%s\n", "somefile.cpp", 42, 1, "asdf");
+  PRINTF("d %s:%d:%d:%d:%s\n", "somefile.cpp", 42, 1, 2, "asdf");
 }
 
 #endif
@@ -180,15 +509,18 @@ with nested(open(main_source, 'w'), open(main_header, 'w')) as \
     '''.format(prefix), 0, re.MULTILINE))
   for i in range(num_translation_units):
     n = '{:03}'.format(i)
-    func_name = 'doFormat_a' + n
     source = prefix + n + '.cc'
     sources.append(source)
     with open(source, 'w') as f:
       if i == 0:
         f.write('#define FIRST_FILE\n')
-      f.write(template.replace('doFormat_a', func_name).replace('42', str(i)))
-    main_file.write(func_name + '();\n')
-    header_file.write('void ' + func_name + '();\n')
+      text = template
+      for p in ["a", "b", "c", "d"]:
+        func_name = 'doFormat_{}{}'.format(p, n)
+        text = text.replace('doFormat_{}'.format(p), func_name).replace('42', str(i))
+        main_file.write(func_name + '();\n')
+        header_file.write('void ' + func_name + '();\n')
+      f.write(text)
   main_file.write('}')
 
 # Find compiler.
@@ -215,8 +547,9 @@ def benchmark(flags):
   if os.path.exists(output_filename):
     os.remove(output_filename)
   include_dir = '-I' + os.path.dirname(os.path.realpath(__file__))
-  command = 'check_call({})'.format(
-    [compiler_path, '-std=c++17', '-o', output_filename, include_dir] + sources + flags)
+  command = [compiler_path, '-std=c++17', '-o', output_filename, include_dir] + sources + flags
+  #print(" ".join(command))
+  command = "check_call({})".format(command)
   result = Result()
   result.time = timeit(
     command, setup = 'from subprocess import check_call', number = 1)
@@ -239,23 +572,24 @@ def benchmark(flags):
 
 configs = [
   ('optimized', ['-O3', '-DNDEBUG']),
-  ('debug',     [])
+  #('debug',     [])
 ]
 
 fmt_library = 'fmt/libfmt.so'
 if not os.path.exists(fmt_library):
   fmt_library = fmt_library.replace('.so', '.dylib')
+fmt_library = "-lfmt"
 
 methods = [
-  ('printf'       , []),
-  ('printf+string', ['-DUSE_STRING']),
-  ('IOStreams'    , ['-DUSE_IOSTREAMS']),
-  ('fmt'          , ['-DUSE_FMT', '-Ifmt/include', fmt_library]),
-  ('compiled_fmt' , ['-DUSE_FMT', '-Ifmt/include', fmt_library]),
-  ('tinyformat'   , ['-DUSE_TINYFORMAT']),
-  ('Boost Format' , ['-DUSE_BOOST']),
-  ('Folly Format' , ['-DUSE_FOLLY', '-lfolly','-ldouble-conversion']),
-  ('stb_sprintf'  , ['-DUSE_STB_SPRINTF']),
+ ('printf'       , []),
+ ('printf+string', ['-DUSE_STRING']),
+ ('IOStreams'    , ['-DUSE_IOSTREAMS']),
+ ('fmt'          , ['-DUSE_FMT', '-Ifmt/include', fmt_library]),
+ ('compiled_fmt' , ['-DUSE_FMT', '-Ifmt/include', fmt_library]),
+ ('tinyformat'   , ['-DUSE_TINYFORMAT']),
+ ('Boost Format' , ['-DUSE_BOOST']),
+ ('Folly Format' , ['-DUSE_FOLLY', '-lfolly','-ldouble-conversion']),
+ ('stb_sprintf'  , ['-DUSE_STB_SPRINTF']),
   ('pformat' , ['-DUSE_PFORMAT'])
 ]
 
@@ -289,7 +623,7 @@ def print_table(table, *formats):
 def to_kib(n):
   return int(round(n / 1024.0))
 
-NUM_RUNS = 3
+NUM_RUNS = 1
 for config, flags in configs:
   results = {}
   for i in range(NUM_RUNS):
